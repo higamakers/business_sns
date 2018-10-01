@@ -6,18 +6,18 @@
 		echo $this->Form->input('nickname');
 		echo $this->Form->input('site_url');
 		echo $this->Form->input('business_category_id',
-                array('options' => $business_categories));
+                array('options' => $business_category_list));
 		echo $this->Form->input('business_small_category');
 		echo $this->Form->input('business_pr');
 		echo $this->Form->input('business_purpose_id',
-                               array('options' =>$business_purposes));
+                               array('options' =>$business_purpose_list));
         echo $this->Form->input('business_status_id',
-                               array('options' =>$business_statuses));
+                               array('options' =>$business_status_list));
         
 		echo $this->Form->input('age_id',
-                               array('options' =>$ages));
+                               array('options' =>$age_list));
 		echo $this->Form->input('pref_id',
-                               array('options' =>$prefs));
+                               array('options' =>$pref_list));
 		
 	?>
 	</fieldset>

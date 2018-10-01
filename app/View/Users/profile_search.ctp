@@ -46,13 +46,13 @@
 		<legend><?php echo __('Search User'); ?></legend>
 	<?php
 		echo $this->Form->input('nickname');
-		echo $this->Form->input('business_category_id', array('options' => $business_categories,'empty' =>'未選択'));
+		echo $this->Form->input('business_category_id', array('options' => $business_category_list,'empty' =>'---'));
 		echo $this->Form->input('business_small_category');
 		echo $this->Form->input('business_pr');
-		echo $this->Form->input('business_purpose_id', array('options' => $business_purposes,'empty' =>'未選択'));
-        echo $this->Form->input('business_status_id', array('options' => $business_statuses,'empty' =>'未選択'));
-		echo $this->Form->input('age_id', array('options' => $ages,'empty' =>'未選択'));
-		echo $this->Form->input('pref_id', array('options' => $prefs,'empty' =>'未選択'));
+		echo $this->Form->input('business_purpose_id', array('options' => $business_purpose_list,'empty' =>'---'));
+        echo $this->Form->input('business_status_id', array('options' => $business_status_list,'empty' =>'---'));
+		echo $this->Form->input('age_id', array('options' => $age_list,'empty' =>'---'));
+		echo $this->Form->input('pref_id', array('options' => $pref_list,'empty' =>'---'));
 		
 	?>
 	</fieldset>

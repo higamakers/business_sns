@@ -34,6 +34,31 @@ class UsersController extends AppController {
     const DELETE_SUCCESS = "削除に成功しました。";
     const DELETE_FAILD = "削除に失敗しました。";
 
+    
+    public $age_list;
+    public $business_category_list;
+    public $business_purpose_list;
+    public $business_status_list;
+    public $pref_list;
+    
+    
+    function __construct($request, $response){ 
+        
+        //各リストを取得
+        $this->age_list = $this->Age->find('list', array('fields' => 'age_name'));
+            
+        $this->business_category_list = $this->BusinessCategory->find('list', array('fields' => 'category_name'));
+        $this->pref_list = $this->Pref->find('list', array('fields' => 'pref_name'));
+            
+        $this->business_purpose_list = $this->BusinessPurpose->find('list', array('fields' => 'business_purpose_name'));
+            
+        $this->business_status_list = $this->BusinessStatus->find('list', array('fields' => 'business_status_name'));
+            
+        $this->pref_list = $this->Pref->find('list', array('fields' => 'pref_name'));
+        
+        parent::__construct($request, $response);
+    }
+    
 /**
  *
  * document
@@ -185,27 +210,18 @@ class UsersController extends AppController {
             //GET
             $user = $this->User->read(null, $user_id);
             
-        //各リストを取得
-        $ages = $this->Age->find('list', array('fields' => 'age_name'));
-            
-        $business_categoris = $this->BusinessCategory->find('list', array('fields' => 'category_name'));
-        $prefs = $this->Pref->find('list', array('fields' => 'pref_name'));
-            
-        $business_purposes = $this->BusinessPurpose->find('list', array('fields' => 'business_purpose_name'));
-            
-        $business_statuses = $this->BusinessStatus->find('list', array('fields' => 'business_status_name'));
-            
-        $prefs = $this->Pref->find('list', array('fields' => 'pref_name'));
         
         //すでにある値をセット
         $this->request->data = $user;    
             
+        
             
-        $this->set("ages",$ages);
-        $this->set("business_categories",$business_categoris);
-        $this->set("business_purposes",$business_purposes);
-        $this->set("business_statuses", $business_statuses);   
-        $this->set("prefs",$prefs);
+        $this->sets(array(
+            "age_list" => $this->age_list,
+            "business_category_list" => $this->business_category_list,
+            "business_purpose_list" => $this->business_purpose_list,
+            "business_status_list" =>$this->business_status_list,
+            "pref_list" => $this->pref_list));    
             
             
             
@@ -358,30 +374,16 @@ class UsersController extends AppController {
         $options['User.id !='] = $user_id;
         
         
-        
+        //自分以外のユーザー
 		$other_users = $this->paginate($options);
 
         
-        
-        
-        //各リストを取得
-        $ages = $this->Age->find('list', array('fields' => 'age_name'));
-            
-        $business_categories = $this->BusinessCategory->find('list', array('fields' => 'category_name'));
-        $prefs = $this->Pref->find('list', array('fields' => 'pref_name'));
-            
-        $business_purposes = $this->BusinessPurpose->find('list', array('fields' => 'business_purpose_name'));
-            
-        $business_statuses = $this->BusinessStatus->find('list', array('fields' => 'business_status_name'));
-            
-        $prefs = $this->Pref->find('list', array('fields' => 'pref_name'));
-        
-            
-        $this->set("ages",$ages);
-        $this->set("business_categories",$business_categories);
-        $this->set("business_purposes",$business_purposes);
-        $this->set("business_statuses", $business_statuses);   
-        $this->set("prefs",$prefs);
+        $this->sets(array(
+            "age_list" => $this->age_list,
+            "business_category_list" => $this->business_category_list,
+            "business_purpose_list" => $this->business_purpose_list,
+            "business_status_list" =>$this->business_status_list,
+            "pref_list" => $this->pref_list));  
         
         
         

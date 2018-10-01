@@ -63,4 +63,21 @@ class AppController extends Controller {
     return false;
     }
     
+    
+    //複数の$this->set("name", $value);
+    public function sets($data = array()){
+        
+        foreach($data as $key => $value){
+            
+            
+            
+            
+            $this->set($key, $value);
+            
+            
+        }
+        
+        
+    }
+    
 }

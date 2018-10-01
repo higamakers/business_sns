@@ -31,6 +31,10 @@ class UserRegistrsController extends AppController {
     const FROM = "開発者";
     const TITLE = "登録ありがとうございます。";
 
+    
+    
+    
+    
 /**
  *
  * document
