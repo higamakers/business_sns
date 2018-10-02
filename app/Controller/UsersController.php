@@ -18,7 +18,8 @@ class UsersController extends AppController {
                         'BusinessCategory',
                         'BusinessPurpose',
                         'BusinessStatus',
-                        'Pref');
+                        'Pref',
+                        "Check");
     
     public $components = array('Auth' => array('authorize' => array('Controller') )
                               );
@@ -162,6 +163,11 @@ class UsersController extends AppController {
         $user = $this->User->read(null,$user_id);
         
         $thumbnail_url = $user['User']['thumbnail_url'];
+        
+        //チェック中のユーザーを取得 CheckUser
+        $check_list = $this->Check->find("all",
+                                         array('conditons' => array('user_id' => $user_id)));
+        
         
         
         $this->set("user", $user);
@@ -401,9 +407,34 @@ class UsersController extends AppController {
         
         if($id != null){
             
+            $user_id = $this->Auth->user("id");
+            
+            $other_user_id = $id;
+            
             $other_user = $this->User->read(null, $id);
             
+            //チェック済みかどうか検索
+            $check_status = $this->Check->find('count',
+                    array("conditions" =>array('Check.user_id' => $user_id,
+                'Check.check_user_id' =>$other_user_id,
+                'Check.delete_flag' => 0)));
+            
+            var_dump($check_status);
+            
+            //以前チェックしたかどうか検索
+            $before_check_status = $this->Check->find('count',
+                    array("conditions" =>array('Check.user_id' => $user_id,
+                'Check.check_user_id' =>$other_user_id)));
+            
+            
             $this->set("other_user", $other_user);
+            
+            $this->set('check_status', $check_status);
+            
+            $this->set('before_check_status', $before_check_status);
+            
+            
+            
             
             
             
