@@ -46,7 +46,10 @@
         
         <dt>参加申し込み</dt>
         
-        <?php if($entry_flag < 1): ?>
+        <?php 
+        
+        if($party['Party']['end_flag'] == 0):
+        if($entry_flag < 1): ?>
         
 		<dd>
 			<?php echo $this->Html->link('参加申込',
@@ -61,16 +64,26 @@
 			参加受付完了
 		</dd>
         
-        <?php endif; ?>
+        <?php 
+            endif;
+            else: ?>
+        
+        <dd>
+			<p>募集終了</p>
+		</dd>
+        
+        
+        
+        <?php
+            endif; ?>
         
 	</dl>
 </div>
+
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Party'), array('action' => 'edit', $party['Party']['id'])); ?> </li>
-	</ul>
+	<?php echo $this->element('navigation'); ?>
 </div>
+
 <div class="related">
 	<h3><?php echo __('参加者一覧'); ?></h3>
 	<?php if (!empty($party['Entry'])): ?>

@@ -50,6 +50,23 @@ class ProfileHelper extends AppHelper {
     
 }
     
+    //自己紹介を１０文字以上の場合１０文字以下に編集
+    public function etc($str){
+        
+        $text = $str;
+        
+        if(mb_strlen($str) >= 10){
+            
+            $text = mb_substr($str, 0, 10).'...';
+            
+            
+            
+        }
+        
+        return $text;
+        
+    }
+    
     
     //テスト用
     public function hello(){

@@ -1,45 +1,139 @@
 <div class="users form">
 <?php echo $this->Form->create('User', array('type' => 'POST')); ?>
 	<fieldset>
-		<legend><?php echo __('Edit User'); ?></legend>
+		<legend><?php echo __('プロフィール編集'); ?></legend>
 	<?php
-		echo $this->Form->input('nickname');
-		echo $this->Form->input('site_url');
+        echo $this->Form->label('nickname', $column['nickname']);
+        
+		echo $this->Form->input('nickname',
+                               array('label' =>false));
+        
+        echo $this->Form->error('nickname',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
+        
+    ?>    
+       
+    <?php   
+        
+        echo $this->Form->label('site_url', $column['site_url']);
+        
+		echo $this->Form->input('site_url',
+                               array('label' =>false));
+        
+        echo $this->Form->error('site_url',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
+        
+    ?> 
+        
+    <?php    
+        echo $this->Form->label('business_category_id', $column['business_category_id']);
+        
 		echo $this->Form->input('business_category_id',
-                array('options' => $business_category_list));
-		echo $this->Form->input('business_small_category');
-		echo $this->Form->input('business_pr');
+                array('options' => $business_category_list,
+                     'label' => false));
+        
+        echo $this->Form->error('business_category_id',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
+        
+    ?>    
+       
+    <?php
+        echo $this->Form->label('business_small_category', $column['business_small_category']);
+        
+		echo $this->Form->input('business_small_category',
+                               array('label' =>false));
+        
+        echo $this->Form->error('business_small_category',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
+        
+    ?>    
+       
+    <?php
+        echo $this->Form->label('business_pr', $column['business_pr']);
+        
+		echo $this->Form->input('business_pr',
+                               array('label' =>false));
+        
+        echo $this->Form->error('business_pr',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
+        
+    ?>    
+       
+    <?php
+        echo $this->Form->label('business_purpose_id', $column['business_purpose_id']);
+        
 		echo $this->Form->input('business_purpose_id',
-                               array('options' =>$business_purpose_list));
+                               array('options' =>$business_purpose_list,
+                                    'label' => false));
+        
+        echo $this->Form->error('business_purpose_id',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
+    ?>    
+       
+    <?php
+        echo $this->Form->label('business_status_id', $column['business_status_id']);
+        
         echo $this->Form->input('business_status_id',
-                               array('options' =>$business_status_list));
+                               array('options' =>$business_status_list,
+                                    'label' => false));
+        
+        
+        echo $this->Form->error('business_status_id',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
+    ?>    
+       
+    <?php     
+        echo $this->Form->label('age_id', $column['age_id']);
         
 		echo $this->Form->input('age_id',
-                               array('options' =>$age_list));
+                               array('options' =>$age_list,
+                                    'label' => false));
+        
+        echo $this->Form->error('age_id',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
+    ?>    
+       
+    <?php 
+        echo $this->Form->label('pref_id', $column['pref_id']);
+        
 		echo $this->Form->input('pref_id',
-                               array('options' =>$pref_list));
+                               array('options' =>$pref_list,
+                                    'label' => false));
+        
+        echo $this->Form->error('pref_id',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
 		
 	?>
+        
+        
+    <?php
+		echo $this->Form->button('登録する',
+                array('type' => 'submit',
+                      'class' => ''));
+        
+        echo $this->Form->end();
+	?>    
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('User.id')), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Business Categories'), array('controller' => 'business_categories', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Business Category'), array('controller' => 'business_categories', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Business Purposes'), array('controller' => 'business_purposes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Business Purpose'), array('controller' => 'business_purposes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Ages'), array('controller' => 'ages', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Age'), array('controller' => 'ages', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Preves'), array('controller' => 'preves', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Pref'), array('controller' => 'preves', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Cities'), array('controller' => 'cities', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New City'), array('controller' => 'cities', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Entries'), array('controller' => 'entries', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Entry'), array('controller' => 'entries', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->element('navigation'); ?>
 </div>

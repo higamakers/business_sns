@@ -19,6 +19,25 @@ class ShopsController extends AppController {
     const EDIT_FAILD = "編集に失敗しました。";
     const DELETE_SUCCESS = "削除に成功しました。";
     const DELETE_FAILD = "削除に失敗しました。";
+    
+    
+    /**
+    *
+    *
+    * column
+    *
+    */
+    
+    protected $column = array('id' => 'No.',
+                              'shop_name' => '店舗名',
+                              'pref_id' => '都道府県',
+                              'city' => '市区町村',
+                              'addr' => '住所',
+                              'nearest_station' => '最寄駅からの道順',
+                              'site_url' => 'サイトURL',
+                              'comment' => '店舗詳細',
+                              'created_at' => '追加日時',
+                              'updated_at' => '更新日時');
 
 /**
  *
@@ -60,6 +79,8 @@ class ShopsController extends AppController {
         
         $pref_list = $this->Pref->find('list', array('fields' => 'pref_name'));
 
+        $this->set('column', $this->column);
+        
         $this->set('pref_list', $pref_list);
 
         $this->set("shops", $shops);
@@ -92,6 +113,9 @@ class ShopsController extends AppController {
         
         $pref_list = $this->Pref->find('list', array('fields' => 'pref_name'));
 
+        
+        $this->set('column', $this->column);
+        
         $this->set('pref_list', $pref_list);
         
     }
@@ -164,7 +188,7 @@ class ShopsController extends AppController {
 
     }
 
-    public function delete(){
+    public function delete($id = null){
 
         if($id != null && $this->request->isPost()){
             

@@ -76,7 +76,7 @@ class User extends AppModel {
 				'allowEmpty' => true,
 				'required' => false,
 				'last' => true,
-                'on' => null,
+                'on' => 'create',
 		),
         "unique" => array(
                 //一意かどうか
@@ -103,7 +103,7 @@ class User extends AppModel {
 				'allowEmpty' => true,
 				'required' => false,
 				'last' => true,
-                'on' => null,
+                'on' => 'create',
 		),
             ),//password
         
@@ -112,12 +112,12 @@ class User extends AppModel {
             "fileCompleted" => array(
              "rule" => 'isCompletedUpload',
              "message" => 'ファイルが正常にアップロードされませんでした。',
-             "on" => 'update'
+             "on" => null
             ),
             "fileEmpty" => array(
              "rule" => 'isFileUpload',
              "message" => 'ファイルが見つかりません',
-             "on" => 'update'
+             "on" => null
             ),
             "mimeError" =>array(
              "rule" => array('isValidMimeType',
@@ -125,7 +125,7 @@ class User extends AppModel {
                                  'image/jpeg', 'image/png', 
                                  'image/gif')),
              "message" => 'MimeTypeを確認してください',
-             "on" => 'update'
+             "on" => null
             ),
             "fileSizeError" =>array(
              "rule" => array('isBelowMaxSize',2097152),
@@ -138,7 +138,7 @@ class User extends AppModel {
                  'jpeg',
                  'gif')),
              "message" => '拡張子を確認してください',
-             "on" => 'update'
+             "on" => null
             ),
             
         

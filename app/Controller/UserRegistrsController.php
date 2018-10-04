@@ -32,7 +32,16 @@ class UserRegistrsController extends AppController {
     const TITLE = "登録ありがとうございます。";
 
     
-    
+ /**
+*
+* columnName
+*
+*/
+protected $column = array('id' => 'No.',
+						  'username' => 'メールアドレス',
+						  'password' => 'パスワード',
+						  'nickname' => 'ニックネーム',
+						  );
     
     
 /**
@@ -75,6 +84,8 @@ class UserRegistrsController extends AppController {
     
     //ユーザー仮登録
     public function signup(){
+        
+        $this->set('column', $this->column);
         
         if($this->request->isPost()){//POST
             

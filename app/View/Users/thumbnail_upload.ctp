@@ -3,19 +3,24 @@
                                array('type' => 'file',
                                      'id' => 'thumbnail')); ?>
 	<fieldset>
-		<legend><?php echo __('Add Users Thumbnail'); ?></legend>
+		<legend><?php echo __('サムネイルアップロード'); ?></legend>
 	<?php
         
-		echo $this->Form->input('thumbnail_url', array('type' => 'file', 'required' => false));
+		echo $this->Form->input('thumbnail_url', 
+                                array('type' => 'file', 'required' => false,
+                                     'label' => false));
+    
         
         //ヴァリデーションエラー
         //emptyは変数が空であっても警告を発しない
-        if(!empty($upload_errors)){
-            
-           echo $upload_errors; 
-            
-        }
+        if(!empty($upload_errors)):
         
+        ?>
+            
+           <?php echo $upload_errors; ?>
+            
+        <?php
+        endif;
         
 	?>
 	</fieldset>
@@ -30,13 +35,7 @@
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Profile Images'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->element('navigation'); ?>
 </div>
 
 

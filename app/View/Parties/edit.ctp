@@ -1,33 +1,39 @@
 <div class="parties form">
 <?php echo $this->Form->create('Party', array('type' => 'post')); ?>
 	<fieldset>
-		<legend><?php echo __('edit Party'); ?></legend>
+		<legend><?php echo __('交流会編集'); ?></legend>
 	<?php
-		echo $this->Form->input('year');
+		echo $this->Form->input('year',
+                               array('label' => $column['year']));
+        
 		echo $this->Form->input('month', 
-                                array('options' => $month_list));
+                                array('options' => $month_list,
+                                     'label' => $column['month']));
+        
 		echo $this->Form->input('day', 
-                                array('options' => $day_list));
-		echo $this->Form->input('start_time');
-		echo $this->Form->input('end_time');
+                                array('options' => $day_list,
+                                     'label' => $column['day']));
+		echo $this->Form->input('start_time',
+                               array('label' => $column['start_time']));
+		echo $this->Form->input('end_time',
+                               array('label' => $column['end_time']));
 		echo $this->Form->input('shop_id', 
-                                array('options' => $shop_list));
-		echo $this->Form->input('title');
-		echo $this->Form->input('content');
-		echo $this->Form->input('price');
+                                array('options' => $shop_list,
+                                     'label' => $column['shop_id']));
+        
+		echo $this->Form->input('title',
+                               array('label' => $column['title']));
+        
+		echo $this->Form->input('content',
+                               array('label' => $column['content']));
+        
+		echo $this->Form->input('price',
+                               array('label' => $column['price']));
 		
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php echo $this->Form->end(__('更新')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Parties'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Shops'), array('controller' => 'shops', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Shop'), array('controller' => 'shops', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Entries'), array('controller' => 'entries', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Entry'), array('controller' => 'entries', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->element('ctl_nav'); ?>
 </div>

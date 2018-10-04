@@ -34,6 +34,28 @@ class UsersController extends AppController {
     const EDIT_FAILD = "編集に失敗しました。";
     const DELETE_SUCCESS = "削除に成功しました。";
     const DELETE_FAILD = "削除に失敗しました。";
+    
+    
+ /**
+*
+* columnName
+*
+*/
+protected $column = array('id' => 'No.',
+						  'username' => 'メールアドレス',
+						  'password' => 'パスワード',
+						  'nickname' => 'ニックネーム',
+                          'site_url' => 'サイトURL',
+                          'business_category_id' => '業種カテゴリー',
+                          'business_small_category' => '職種',
+                          'business_pr' => '自己紹介',
+                          'business_purpose_id' => '交流の目的',
+                          'business_status_id' => '役職',
+                          'age_id' => '年齢',
+                          'pref_id' => '都道府県',
+                          ''
+                          
+						  );
 
     
     public $age_list;
@@ -118,7 +140,8 @@ class UsersController extends AppController {
     **/
     	public function login(){
 
-		
+		$this->set('column', $this->column);
+            
         if($this->request->isPost()){
 
             //Login
@@ -138,6 +161,9 @@ class UsersController extends AppController {
             //ログイン済みであれば、自動ログイン
             if($this->Auth->login()){
                  $url = $this->Auth->redirect();
+                
+                
+                
                 $this->redirect($url);
                 
             }
@@ -216,6 +242,8 @@ class UsersController extends AppController {
             //GET
             $user = $this->User->read(null, $user_id);
             
+            
+            
         
         //すでにある値をセット
         $this->request->data = $user;    
@@ -229,6 +257,7 @@ class UsersController extends AppController {
             "business_status_list" =>$this->business_status_list,
             "pref_list" => $this->pref_list));    
             
+        $this->set('column', $this->column);    
             
             
             
@@ -315,6 +344,8 @@ class UsersController extends AppController {
     //プロフィール検索
     public function profile_search(){
 
+    //のちにバリデーション の呼び出し入れる    
+        
         
     $user_id = $this->Auth->user('id');    
         
@@ -383,6 +414,8 @@ class UsersController extends AppController {
         //自分以外のユーザー
 		$other_users = $this->paginate($options);
 
+        
+        $this->set('column', $this->column);
         
         $this->sets(array(
             "age_list" => $this->age_list,

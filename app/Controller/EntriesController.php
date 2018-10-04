@@ -28,6 +28,13 @@ class EntriesController extends AppController {
     const FROM_ADDRESS = "info@example.com";
     const FROM = "開発者";
     const TITLE = "交流会参加を受け付けました。";
+    
+/**
+*
+* columnName
+*
+*/
+protected $column = array('comment' => '参加メッセージ');
 
 /**
  *
@@ -161,6 +168,7 @@ class EntriesController extends AppController {
             
             
             
+            $this->set('column', $this->column);
             
             $this->set('party',$party);
             

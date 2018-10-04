@@ -1,19 +1,19 @@
 <div class="shops index">
-	<h2><?php echo __('Shops'); ?></h2>
+	<h2><?php echo __('店舗情報一覧'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('shop_name'); ?></th>
-			<th><?php echo $this->Paginator->sort('pref_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('city'); ?></th>
-			<th><?php echo $this->Paginator->sort('addr'); ?></th>
-			<th><?php echo $this->Paginator->sort('nearest_station'); ?></th>
-			<th><?php echo $this->Paginator->sort('site_url'); ?></th>
-			<th><?php echo $this->Paginator->sort('comment'); ?></th>
-			<th><?php echo $this->Paginator->sort('created_at'); ?></th>
-			<th><?php echo $this->Paginator->sort('updated_at'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+			<th><?php echo $this->Paginator->sort('id', $column['id']); ?></th>
+			<th><?php echo $this->Paginator->sort('shop_name', $column['shop_name']); ?></th>
+			<th><?php echo $this->Paginator->sort('pref_id', $column['pref_id']); ?></th>
+			<th><?php echo $this->Paginator->sort('city', $column['city']); ?></th>
+			<th><?php echo $this->Paginator->sort('addr', $column['addr']); ?></th>
+			<th><?php echo $this->Paginator->sort('nearest_station', $column['nearest_station']); ?></th>
+			<th><?php echo $this->Paginator->sort('site_url', $column['site_url']); ?></th>
+			<th><?php echo $this->Paginator->sort('comment', $column['comment']); ?></th>
+			<th><?php echo $this->Paginator->sort('created_at', $column['created_at']); ?></th>
+			<th><?php echo $this->Paginator->sort('updated_at', $column['updated_at']); ?></th>
+			<th class="actions"><?php echo __('操作'); ?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -32,9 +32,9 @@
 		<td><?php echo h($shop['Shop']['created_at']); ?>&nbsp;</td>
 		<td><?php echo h($shop['Shop']['updated_at']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $shop['Shop']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $shop['Shop']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $shop['Shop']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $shop['Shop']['id']))); ?>
+			<?php echo $this->Html->link(__('詳細'), array('action' => 'view', $shop['Shop']['id'])); ?>
+			<?php echo $this->Html->link(__('更新'), array('action' => 'edit', $shop['Shop']['id'])); ?>
+			<?php echo $this->Form->postLink(__('削除'), array('action' => 'delete', $shop['Shop']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $shop['Shop']['id']))); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -55,13 +55,5 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Shop'), array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link(__('Search Shop'), array('action' => 'search')); ?></li>
-		<li><?php echo $this->Html->link(__('List Preves'), array('controller' => 'preves', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Pref'), array('controller' => 'preves', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Parties'), array('controller' => 'parties', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Party'), array('controller' => 'parties', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->element('ctl_nav'); ?>
 </div>

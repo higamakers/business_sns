@@ -22,7 +22,24 @@ class PartiesController extends AppController {
     const DELETE_SUCCESS = "削除に成功しました。";
     const DELETE_FAILD = "削除に失敗しました。";
     
-    
+     /**
+*
+* columnName
+*
+*/
+protected $column = array('id' => 'No.',
+                          'year' => '年',
+                          'month' => '月',
+                          'day' => '日',
+                          'start_time' => '開始時間',
+                          'end_time' => '終了時間',
+                          'shop_id' => '店舗名',
+                          'title' => '交流会名',
+                          'content' => '詳細',
+                          'price' => '料金',
+                         'end_flag' => '募集中',
+                         'created_at' => '追加日時',
+                         'updated_at' => '更新日時');
     
     //リストを定義
     
@@ -33,6 +50,8 @@ class PartiesController extends AppController {
     public $day_list;
     
     public $shop_list;
+    
+    public $end_list;
     
     
     function __construct($request, $response){
@@ -67,7 +86,8 @@ class PartiesController extends AppController {
         $this->shop_list = $this->Shop->find('list',
                                              array('fields' => 'shop_name'));
         
-        
+        $this->end_list = array(0 => '募集中',
+                                1 => '終了');
         
         
         parent::__construct($request, $response);
@@ -121,8 +141,12 @@ class PartiesController extends AppController {
 
         $this->set("parties", $parties);
         
+        $this->set('price', $this->colmun);
+        
         
         $this->set('shop_list', $this->shop_list);
+        
+        $this->set('end_list', $this->end_list);
         
     }
     
@@ -186,6 +210,12 @@ class PartiesController extends AppController {
 
         $parties = $this->paginate();
 
+        $this->set("column", $this->column);
+        
+        $this->set('end_list', $this->end_list);
+        
+        $this->set('shop_list', $this->shop_list);
+        
         $this->set("parties", $parties);
 
     }
@@ -194,6 +224,10 @@ class PartiesController extends AppController {
     public function add(){
 
         if($this->request->isPost()){//POST
+            
+            
+            $this->request->data['Party']['year_month_day'] = $this->Party->year_month_day($this->request->data['Party']);
+            
             
             if($this->Party->save($this->request->data)){
                 
@@ -216,6 +250,10 @@ class PartiesController extends AppController {
         
         
         $this->request->data = $this->today;
+        
+        $this->set("column", $this->column);
+        
+        $this->set('end_list', $this->end_list);
         
         $this->set('month_list', $this->month_list);
         
@@ -300,7 +338,7 @@ class PartiesController extends AppController {
 
     }
 
-    public function delete(){
+    public function delete($id = null){
 
         if($id != null && $this->request->isPost()){
             
@@ -337,6 +375,98 @@ class PartiesController extends AppController {
             
         }
 
+    }
+    
+    //募集終了
+    public function end_party($id = null){
+        
+        if($id != null && $this->request->isPost()){
+            
+            $this->Party->id = $id;
+            
+            if($this->Party->exists()){
+                
+                $this->request->data['Party']['id'] = $id;
+                
+                if($this->Party->saveField('end_flag', 1)){
+                    
+                    $this->Flash->set(self::DELETE_SUCCESS);
+                    
+                    $this->redirect("index");
+                    
+                }else{
+                    
+                    $this->Flash->set(self::DELETE_FAILD);
+                    
+                    $this->redirect("index");
+                    
+                }
+                
+                
+            }else{
+                     
+               $this->redirect("index"); 
+                
+            }
+            
+            
+        }else{
+            
+            $this->redirest("index");
+            
+            
+        }
+
+        
+        
+        
+        
+    }
+    
+    //募集開始
+    public function start_party($id = null){
+        
+        if($id != null && $this->request->isPost()){
+            
+            $this->Party->id = $id;
+            
+            if($this->Party->exists()){
+                
+                $this->request->data['Party']['id'] = $id;
+                
+                if($this->Party->saveField('end_flag', 0)){
+                    
+                    $this->Flash->set(self::DELETE_SUCCESS);
+                    
+                    $this->redirect("index");
+                    
+                }else{
+                    
+                    $this->Flash->set(self::DELETE_FAILD);
+                    
+                    $this->redirect("index");
+                    
+                }
+                
+                
+            }else{
+                     
+               $this->redirect("index"); 
+                
+            }
+            
+            
+        }else{
+            
+            $this->redirest("index");
+            
+            
+        }
+
+        
+        
+        
+        
     }
 
 

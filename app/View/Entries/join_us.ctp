@@ -21,19 +21,27 @@
 <?php echo $this->Form->create('Entry'); ?>
 	<fieldset>
 	<?php
-		echo $this->Form->input('comment');
+        echo $this->Form->label('comment', $column['comment']);
+        
+		echo $this->Form->input('comment',
+                               array('label' => false));
+        
+        echo $this->Form->error('comment',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
+	?>
+        
+    <?php
+		echo $this->Form->button('参加する',
+                array('type' => 'submit',
+                      'class' => ''));
+        
+        echo $this->Form->end();
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Entries'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Parties'), array('controller' => 'parties', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Party'), array('controller' => 'parties', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->element('navigation'); ?>
 </div>

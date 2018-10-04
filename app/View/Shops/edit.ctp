@@ -1,7 +1,7 @@
 <div class="shops form">
 <?php echo $this->Form->create('Shop', array('type' => 'post')); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Shop'); ?></legend>
+		<legend><?php echo __('店舗情報更新'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('shop_name');
@@ -17,14 +17,5 @@
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Shop.id')), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('Shop.id')))); ?></li>
-		<li><?php echo $this->Html->link(__('List Shops'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Preves'), array('controller' => 'preves', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Pref'), array('controller' => 'preves', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Parties'), array('controller' => 'parties', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Party'), array('controller' => 'parties', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->element('ctl_nav'); ?>
 </div>

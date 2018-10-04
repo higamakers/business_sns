@@ -93,13 +93,10 @@ class Party extends AppModel {
 
     public function beforeSave($options = array()){
         
-        if(empty($this->data[$this->alias]['id'])){
+        if(empty($this->data['Party']['id'])){
             //add action
             $this->data[$this->alias]['created_at'] = date('Y-m-d H:i:s');
             $this->data[$this->alias]['updated_at'] = date('Y-m-d H:i:s');
-            
-            $this->data[$this->alias]['year_month_day'] = $this->year_month_day($this->data[$this->alias]);
-            
             
             
             
@@ -108,7 +105,8 @@ class Party extends AppModel {
             //edit action
             $this->data[$this->alias]['updated_at'] = date('Y-m-d H:i:s');
             
-            $this->data[$this->alias]['year_month_day'] = $this->year_month_day($this->data[$this->alias]);
+            
+            
             
         }
             return true;

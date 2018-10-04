@@ -22,7 +22,7 @@
 		</td>
 		
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'party_detail', $party['Party']['id'])); ?>
+			<?php echo $this->Html->link(__('詳細を見る'), array('action' => 'party_detail', $party['Party']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -43,13 +43,5 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Party'), array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link(__('Search Party'), array('action' => 'search')); ?></li>
-		<li><?php echo $this->Html->link(__('List Shops'), array('controller' => 'shops', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Shop'), array('controller' => 'shops', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Entries'), array('controller' => 'entries', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Entry'), array('controller' => 'entries', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->element('navigation'); ?>
 </div>
