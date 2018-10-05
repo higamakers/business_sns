@@ -229,6 +229,14 @@ class User extends AppModel {
             //defaultのサムネイル画像
             $this->data[$this->alias]['thumbnail_url'] = "default.jpg";
             
+            //default値を1に
+            $this->data[$this->alias]['business_category_id'] = 1;
+            $this->data[$this->alias]['business_purpose_id'] = 1;
+            $this->data[$this->alias]['business_status_id'] = 1;
+            $this->data[$this->alias]['age_id'] = 1;
+            $this->data[$this->alias]['pref_id'] = 1;
+            
+            
             $this->data[$this->alias]['created_at'] = date('Y-m-d H:i:s');
             $this->data[$this->alias]['updated_at'] = date('Y-m-d H:i:s');
             

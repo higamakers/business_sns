@@ -148,12 +148,15 @@ class ChecksController extends AppController {
             
             $other_user_id = $id;
             
+            var_dump($user_id);
+            var_dump($id);
             $check = $this->Check->find('first',
                     array("conditions" =>array('Check.user_id' => $user_id,
                 'Check.check_user_id' =>$other_user_id)));
             
             
             
+            var_dump($check);
             
             $this->Check->id = $check['Check']['id'];
             

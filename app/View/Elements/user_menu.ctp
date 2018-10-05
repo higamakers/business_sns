@@ -1,5 +1,7 @@
 
 		<ul>
+            <li><?php echo $this->Html->link(__('プロフィール'), array('controller' => 'Users', 'action' => 'my_profile')); ?> </li>
+            
             <li><?php echo $this->Html->link(__('プロフィール編集'), array('controller' => 'Users', 'action' => 'profile_edit')); ?> </li>
             
             <li><?php echo $this->Html->link(__('サムネイルアップロード'), array('controller' => 'Users', 'action' => 'thumbnail_upload')); ?> </li>

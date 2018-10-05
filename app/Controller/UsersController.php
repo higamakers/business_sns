@@ -10,7 +10,7 @@ class UsersController extends AppController {
 
     
     
-    public $helpers = array("Profile");
+    public $helpers = array("Profile", "Party");
     
     
     public $uses = array('User', 
@@ -19,6 +19,7 @@ class UsersController extends AppController {
                         'BusinessPurpose',
                         'BusinessStatus',
                         'Pref',
+                        'Entry',
                         "Check");
     
     public $components = array('Auth' => array('authorize' => array('Controller') )
@@ -105,7 +106,9 @@ protected $column = array('id' => 'No.',
     public function isAuthorized($user){
   
        
-    if($this->action === 'mypage'){ return true; }  
+    if($this->action === 'mypage'){ return true; } 
+        
+    if($this->action === 'my_profile'){ return true; } 
         
 	if($this->action === 'profile_edit'){ return true; }
         
@@ -188,18 +191,64 @@ protected $column = array('id' => 'No.',
         
         $user = $this->User->read(null,$user_id);
         
+        var_dump($user_id);
+        
         $thumbnail_url = $user['User']['thumbnail_url'];
         
         //チェック中のユーザーを取得 CheckUser
-        $check_list = $this->Check->find("all",
-                                         array('conditons' => array('user_id' => $user_id)));
+        $check_users = $this->Check->find("all",
+                    array('conditions' => array('Check.user_id' => $user_id,
+                          'Check.delete_flag' => 0)));
         
         
+        //どの交流会に参加予定か？
+        $entries = $this->Entry->find('all',
+                        array('conditions' => array('user_id' => $user_id)));
+            
+            
+        $this->set('entries', $entries);
+        
+        $this->set('check_users', $check_users);
         
         $this->set("user", $user);
         $this->set("thumbnail_url", $thumbnail_url);
         
     }
+    
+    public function my_profile(){
+        
+    
+            
+            $user_id = $this->Auth->user("id");
+            
+            $user = $this->User->read(null, $user_id);
+            
+            
+            //どの交流会に参加予定か？
+            $entries = $this->Entry->find('all',
+                        array('conditions' => array('user_id' => $user_id)));
+            
+            
+            $this->set('entries', $entries);
+            
+            $this->set("user", $user);
+          
+            
+            $this->sets(array(
+            "age_list" => $this->age_list,
+            "business_category_list" => $this->business_category_list,
+            "business_purpose_list" => $this->business_purpose_list,
+            "business_status_list" =>$this->business_status_list,
+            "pref_list" => $this->pref_list,
+            "column" => $this->column));  
+            
+            
+     
+        
+    }
+    
+    
+    
     
     //プロフィール編集
     public function profile_edit(){
@@ -459,12 +508,27 @@ protected $column = array('id' => 'No.',
                     array("conditions" =>array('Check.user_id' => $user_id,
                 'Check.check_user_id' =>$other_user_id)));
             
+            //どの交流会に参加予定か？
+            $entries = $this->Entry->find('all',
+                        array('conditions' => array('user_id' => $other_user_id)));
+
+            
+            $this->set('entries', $entries);
             
             $this->set("other_user", $other_user);
             
             $this->set('check_status', $check_status);
             
             $this->set('before_check_status', $before_check_status);
+            
+            
+            $this->sets(array(
+            "age_list" => $this->age_list,
+            "business_category_list" => $this->business_category_list,
+            "business_purpose_list" => $this->business_purpose_list,
+            "business_status_list" =>$this->business_status_list,
+            "pref_list" => $this->pref_list,
+            "column" => $this->column));  
             
             
             
@@ -479,6 +543,7 @@ protected $column = array('id' => 'No.',
         }
         
     }
+    
     
     
     

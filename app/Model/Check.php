@@ -41,9 +41,11 @@ class Check extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
+        
+        //チェック中のユーザー情報を取り出す場合$Check['CheckUser']['fields']
 		'CheckUser' => array(
 			'className' => 'User',
-			'foreignKey' => 'user_id',
+			'foreignKey' => 'check_user_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
