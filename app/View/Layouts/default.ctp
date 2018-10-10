@@ -29,6 +29,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('cake.generic');
+    
+    
+    //スライダー
+        echo $this->Html->css('slick-theme');
+        echo $this->Html->css('slick');
+    
+        echo $this->Html->css('custom');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');

@@ -1,38 +1,8 @@
 <div class="users view">
-<h2><?php echo __('User'); ?></h2>
-	<dl>
-		<dt><?php echo __('Thumbnail Url'); ?></dt>
-		<dd>
-			<?php echo $this->Profile->thumb80($thumbnail_url); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Nickname'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['nickname']); ?>
-			&nbsp;
-		</dd>
-		
-	</dl>
-</div>
-
-<!-- メッセージの送受信状況 -->
-
-<!-- PRにコメントがついたかどうか -->
-
-
-
-
-	<div class="actions">
-        <?php echo $this->element('user_menu', 
-                                  array('role' => 
-                                        $user['User']['role'])); ?>
-        <br>
-        
-        <?php echo $this->element('navigation'); ?>
-		
-	</div>
-
-<!-- CHECK情報 -->
+<h2><?php echo $user['User']['nickname']; ?></h2>
+	
+  
+ <!-- CHECK情報 -->
 <div class="related">
 	<h3><?php echo __('チェック中のユーザー'); ?></h3>
 	<table cellpadding = "0" cellspacing = "0">
@@ -73,5 +43,36 @@
 		</tr>
 	<?php endforeach; ?>
 	</table>
+</div>   
+    
+    
+    
+    
+    
+    
+    
+    
 </div>
+
+<!-- メッセージの送受信状況 -->
+
+<!-- PRにコメントがついたかどうか -->
+
+
+
+
+	<div class="actions">
+        
+        <?php echo $this->Profile->thumb80($thumbnail_url); ?>
+        
+        <?php echo $this->element('user_menu', 
+                                  array('role' => 
+                                        $user['User']['role'])); ?>
+        <br>
+        
+        <?php echo $this->element('navigation'); ?>
+		
+	</div>
+
+
 

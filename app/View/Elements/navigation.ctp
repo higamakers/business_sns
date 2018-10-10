@@ -8,7 +8,7 @@
             
              <li><?php echo $this->Html->link(__('交流会リスト'), array('controller' => 'Parties', 'action' => 'party_list')); ?> </li>
             
-            <li><?php echo $this->Html->link(__('PR'), array('controller' => '', 'action' => '')); ?> </li>
+            <li><?php echo $this->Html->link(__('PR'), array('controller' => 'Boards', 'action' => 'pr_search')); ?> </li>
             
             <li><?php echo $this->Html->link(__('メッセージボックス'), array('controller' => '', 'action' => '')); ?> </li>
             

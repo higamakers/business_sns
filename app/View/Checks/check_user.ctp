@@ -1,20 +1,34 @@
 <div class="checks form">
 <?php echo $this->Form->create('Check'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Check'); ?></legend>
+		<legend><?php echo __('チェックする'); ?></legend>
 	<?php
-		echo $this->Form->input('purpose');
+        
+        echo $this->Form->label('purpose', $column['purpose']);
+		
+    
+        echo $this->Form->input('purpose', 
+                                array('label' => false,
+                                       'error' => false));
+        
+         echo $this->Form->error('purpose',null,
+                array('wrap' => 'p',
+                      'class' => '',
+                      'id' => ''));
 		
 	?>
+        
+        
+    <?php
+		echo $this->Form->button('登録する',
+                array('type' => 'submit',
+                      'class' => ''));
+        
+        echo $this->Form->end();
+	?>    
 	</fieldset>
-<?php echo $this->Form->end(__('チェックする')); ?>
+
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Checks'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->element('navigation'); ?>
 </div>

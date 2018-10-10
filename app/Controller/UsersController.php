@@ -191,7 +191,6 @@ protected $column = array('id' => 'No.',
         
         $user = $this->User->read(null,$user_id);
         
-        var_dump($user_id);
         
         $thumbnail_url = $user['User']['thumbnail_url'];
         

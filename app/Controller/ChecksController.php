@@ -16,6 +16,9 @@ class ChecksController extends AppController {
     const EDIT_FAILD = "編集に失敗しました。";
     const DELETE_SUCCESS = "削除に成功しました。";
     const DELETE_FAILD = "削除に失敗しました。";
+    
+    
+    protected $column = array('purpose' => 'メモ');
 
 /**
  *
@@ -61,7 +64,7 @@ class ChecksController extends AppController {
         //以前のチェックデータがあるかどうか？
          $before_check_status = $this->params['url']['before_check_status'];
         
-        var_dump($other_user_id);
+        
         
         
         if($other_user_id != null){
@@ -123,6 +126,8 @@ class ChecksController extends AppController {
             }
             //GET
             
+            $this->set('column', $this->column);
+            
             
         
         }else{
@@ -148,15 +153,11 @@ class ChecksController extends AppController {
             
             $other_user_id = $id;
             
-            var_dump($user_id);
-            var_dump($id);
             $check = $this->Check->find('first',
                     array("conditions" =>array('Check.user_id' => $user_id,
                 'Check.check_user_id' =>$other_user_id)));
             
             
-            
-            var_dump($check);
             
             $this->Check->id = $check['Check']['id'];
             
