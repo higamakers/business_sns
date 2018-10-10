@@ -1,10 +1,10 @@
 <?php
-App::uses('Board', 'Model');
+App::uses('BoardAnswer', 'Model');
 
 /**
- * Board Test Case
+ * BoardAnswer Test Case
  */
-class BoardTest extends CakeTestCase {
+class BoardAnswerTest extends CakeTestCase {
 
 /**
  * Fixtures
@@ -12,6 +12,7 @@ class BoardTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
+		'app.board_answer',
 		'app.board',
 		'app.user',
 		'app.business_category',
@@ -23,9 +24,10 @@ class BoardTest extends CakeTestCase {
 		'app.shop',
 		'app.party',
 		'app.entry',
-		'app.board_answer',
+		'app.board_comment',
+		'app.board_image',
 		'app.board_question',
-		'app.board_image'
+		'app.post_user'
 	);
 
 /**
@@ -35,7 +37,7 @@ class BoardTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Board = ClassRegistry::init('Board');
+		$this->BoardAnswer = ClassRegistry::init('BoardAnswer');
 	}
 
 /**
@@ -44,7 +46,7 @@ class BoardTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Board);
+		unset($this->BoardAnswer);
 
 		parent::tearDown();
 	}

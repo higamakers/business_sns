@@ -20,6 +20,9 @@ class BoardsController extends AppController {
     const DELETE_SUCCESS = "削除に成功しました。";
     const DELETE_FAILD = "削除に失敗しました。";
     
+    const APP_SUCCESS = "承認に成功しました。";
+    const APP_FAILD = "承認に失敗しました。";
+    
     
      public function beforeFilter() {
     parent::beforeFilter();
@@ -48,19 +51,30 @@ class BoardsController extends AppController {
     
     protected $business_purpose_list;
     
+    protected $user_list;
+    
     function __construct($request, $response){ 
         
         //各リストを取得
        $this->business_purpose_list = $this->BusinessPurpose->find('list', array('fields' => 'business_purpose_name'));
+        
+       $this->user_list = $this->User->find('list', array('fields' => 'nickname'));
+        
             
         
         parent::__construct($request, $response);
     }
     
     public $column = 
-        array('business_purpose_id' => 'カテゴリー',
+        array('id' => 'No.',
+        'business_purpose_id' => 'カテゴリー',
+              'user_id' => '投稿者',
               'title' => 'タイトル',
-              'content' => '内容');
+              'content' => '内容',
+              'app_flag' => '承認状態',
+              'delete_flag' => '削除状態',
+              'created_at' => '追加日時',
+              'updated_at' => '更新日時');
 
 /**
  *
@@ -128,6 +142,15 @@ public function pr_search(){
 		}//if
 		
 	}//if
+    
+        //削除済みは表示しない
+        $options['Board.delete_flag !='] = 1;
+    
+        //未承認は表示しない
+        $options['Board.app_flag !='] = 0;
+    
+    
+        
 		$this->set('searchword', $searchword);
 		$boards = $this->paginate($options);
 
@@ -235,6 +258,50 @@ public function pr_search(){
     }
     
     
+    //投稿の削除
+    public function pr_delete($id = null){
+        
+        if($id != null && $this->request->isPost()){
+            
+            $this->Board->id = $id;
+            
+            $this->request->data['Board']['id'] = $id;
+            
+            if($this->Board->exists()){
+                
+                if($this->Board->saveField('delete_flag', 1)){
+                    
+                    $this->Flash->set(self::DELETE_SUCCESS);
+                    
+                    $this->redirect("pr_search");
+                    
+                }else{
+                    
+                    $this->Flash->set(self::DELETE_FAILD);
+                    
+                    $this->redirect("pr_search");
+                    
+                }
+                
+                
+            }else{
+                     
+               $this->redirect("index"); 
+                
+            }
+            
+            
+        }else{
+            
+            $this->redirest("index");
+            
+            
+        }
+
+        
+    }
+    
+    
 
 //Controller : Boards,boards
 //Model : Board,board
@@ -244,6 +311,34 @@ public function pr_search(){
         $boards = $this->paginate();
 
         $this->set("boards", $boards);
+        
+        //承認の是非
+        $app_status = array("未承認", "承認済");
+        
+        //削除の是非
+        $delete_status = array('未削除', '削除済');
+        
+        //承認・削除の状態
+        $app_delete_status = array(
+            0 => 
+                 array(0 => '承認待ち', 
+                       1 =>'承認前に削除'),
+            1 => array(0 => "公開中",
+                       1 => "投稿者により削除"));
+        
+        
+        $this->set('column', $this->column);
+        
+        $this->set('app_status', $app_status);
+        
+        $this->set('delete_status', $delete_status);
+        
+        $this->set('app_delete_status', $app_delete_status);
+        
+        $this->set('business_purpose_list', $this->business_purpose_list);
+        
+        $this->set('user_list', $this->user_list);
+        
 
     }
 
@@ -321,7 +416,23 @@ public function pr_search(){
 
         if($id != null){
             
+            $user_id = $this->Auth->user('id');
+            
             $board = $this->Board->read(null, $id);
+            
+            
+            
+            //画像存在フラグ
+            $img_flag = $this->BoardImage->find('count',
+                    array('conditions' => array('BoardImage.board_id' => $id)));
+            
+            
+            $this->set('img_flag', $img_flag);
+            
+            
+            $this->set('business_purpose_list', $this->business_purpose_list);
+            
+            $this->set('column', $this->column);
             
             $this->set("board", $board);
             
@@ -335,47 +446,9 @@ public function pr_search(){
         }
 
     }
+    
 
-    public function delete(){
-
-        if($id != null && $this->request->isPost()){
-            
-            $this->Board->id = $id;
-            
-            if($this->Board->exists()){
-                
-                if($this->Board->delete()){
-                    
-                    $this->Flash->set(self::DELETE_SUCCESS);
-                    
-                    $this->redirect("index");
-                    
-                }else{
-                    
-                    $this->Flash->set(self::DELETE_FAILD);
-                    
-                    $this->redirect("index");
-                    
-                }
-                
-                
-            }else{
-                     
-               $this->redirect("index"); 
-                
-            }
-            
-            
-        }else{
-            
-            $this->redirest("index");
-            
-            
-        }
-
-    }
-
-
+    
 
     public function search(){
 
@@ -442,7 +515,99 @@ public function pr_search(){
 
     }
 
+    
+    //投稿の承認
+    public function app($id = null){
+        
+        
+        if($id != null && $this->request->isPost()){
+            
+            $this->Board->id = $id;
+            
+            $this->request->data['Board']['id'] = $id;
+            
+            if($this->Board->exists()){
+                
+                if($this->Board->saveField('app_flag', 1)){
+                    
+                    $this->Flash->set(self::APP_SUCCESS);
+                    
+                    $this->redirect("index");
+                    
+                }else{
+                    
+                    $this->Flash->set(self::APP_FAILD);
+                    
+                    $this->redirect("index");
+                    
+                }
+                
+                
+            }else{
+                     
+               $this->redirect("index"); 
+                
+            }
+            
+            
+        }else{
+            
+            $this->redirect("index");
+            
+            
+        }
 
+        
+        
+        
+    }
+
+
+    //投稿の削除
+    public function delete($id = null){
+        
+        
+        if($id != null && $this->request->isPost()){
+            
+            $this->Board->id = $id;
+            
+            $this->request->data['Board']['id'] = $id;
+            
+            if($this->Board->exists()){
+                
+                if($this->Board->saveField('delete_flag', 1)){
+                    
+                    $this->Flash->set(self::DELETE_SUCCESS);
+                    
+                    $this->redirect("index");
+                    
+                }else{
+                    
+                    $this->Flash->set(self::DELETE_FAILD);
+                    
+                    $this->redirect("index");
+                    
+                }
+                
+                
+            }else{
+                     
+               $this->redirect("index"); 
+                
+            }
+            
+            
+        }else{
+            
+            $this->redirest("index");
+            
+            
+        }
+
+        
+        
+        
+    }
 
 
 }

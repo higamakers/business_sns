@@ -5,11 +5,29 @@ App::uses('AppModel', 'Model');
  *
  * @property User $User
  * @property BusinessPurpose $BusinessPurpose
- * @property BoardComment $BoardComment
+ * @property BoardAnswer $BoardAnswer
  * @property BoardImage $BoardImage
+ * @property BoardQuestion $BoardQuestion
  */
 class Board extends AppModel {
 
+/**
+ * Validation rules
+ *
+ * @var array
+ */
+	public $validate = array(
+		'delete_flag' => array(
+			'boolean' => array(
+				'rule' => array('boolean'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+	);
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -41,8 +59,8 @@ class Board extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'BoardComment' => array(
-			'className' => 'BoardComment',
+		'BoardAnswer' => array(
+			'className' => 'BoardAnswer',
 			'foreignKey' => 'board_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -56,6 +74,19 @@ class Board extends AppModel {
 		),
 		'BoardImage' => array(
 			'className' => 'BoardImage',
+			'foreignKey' => 'board_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'BoardQuestion' => array(
+			'className' => 'BoardQuestion',
 			'foreignKey' => 'board_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -100,13 +131,8 @@ class Board extends AppModel {
         
         if(empty($this->data[$this->alias]['id'])){
             //add action
-            
-            $this->data[$this->alias]['app_flag'] = 0;
-            
             $this->data[$this->alias]['created_at'] = date('Y-m-d H:i:s');
             $this->data[$this->alias]['updated_at'] = date('Y-m-d H:i:s');
-            
-            
          }else{
             //edit action
             $this->data[$this->alias]['updated_at'] = date('Y-m-d H:i:s');

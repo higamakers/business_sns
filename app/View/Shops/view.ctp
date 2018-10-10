@@ -54,17 +54,7 @@
 	</dl>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Shop'), array('action' => 'edit', $shop['Shop']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Shop'), array('action' => 'delete', $shop['Shop']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $shop['Shop']['id']))); ?> </li>
-		<li><?php echo $this->Html->link(__('List Shops'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Shop'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Preves'), array('controller' => 'preves', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Pref'), array('controller' => 'preves', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Parties'), array('controller' => 'parties', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Party'), array('controller' => 'parties', 'action' => 'add')); ?> </li>
-	</ul>
+		<?php echo $this->element('ctl_nav'); ?>
 </div>
 <div class="related">
 	<h3><?php echo __('Related Parties'); ?></h3>
@@ -110,8 +100,6 @@
 <?php endif; ?>
 
 	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Party'), array('controller' => 'parties', 'action' => 'add')); ?> </li>
-		</ul>
+			
 	</div>
 </div>

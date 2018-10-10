@@ -69,17 +69,7 @@
 	</dl>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Party'), array('action' => 'edit', $party['Party']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Party'), array('action' => 'delete', $party['Party']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $party['Party']['id']))); ?> </li>
-		<li><?php echo $this->Html->link(__('List Parties'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Party'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Shops'), array('controller' => 'shops', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Shop'), array('controller' => 'shops', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Entries'), array('controller' => 'entries', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Entry'), array('controller' => 'entries', 'action' => 'add')); ?> </li>
-	</ul>
+		<?php echo $this->element('ctl_nav'); ?>
 </div>
 <div class="related">
 	<h3><?php echo __('Related Entries'); ?></h3>

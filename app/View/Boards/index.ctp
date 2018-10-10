@@ -3,15 +3,27 @@
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('business_purpose_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('title'); ?></th>
-			<th><?php echo $this->Paginator->sort('content'); ?></th>
-			<th><?php echo $this->Paginator->sort('app_flag'); ?></th>
-			<th><?php echo $this->Paginator->sort('created_at'); ?></th>
-			<th><?php echo $this->Paginator->sort('updated_at'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+			<th><?php echo $this->Paginator->sort('id', $column['id']); ?></th>
+        
+			<th><?php echo $this->Paginator->sort('user_id', $column['user_id']); ?></th>
+        
+			<th><?php echo $this->Paginator->sort('business_purpose_id', $column['business_purpose_id']); ?></th>
+        
+			<th><?php echo $this->Paginator->sort('title', $column['title']); ?></th>
+        
+			<th><?php echo $this->Paginator->sort('content', $column['content']); ?></th>
+        
+			<th><?php echo $this->Paginator->sort('app_flag', $column['app_flag']); ?></th>
+        
+        <th><?php echo $this->Paginator->sort('delete_flag', $column['delete_flag']); ?></th>
+        
+        <th>承認・公開状況</th>
+        
+			<th><?php echo $this->Paginator->sort('created_at', $column['created_at']); ?></th>
+        
+			<th><?php echo $this->Paginator->sort('updated_at', $column['updated_at']); ?></th>
+        
+			<th class="actions"><?php echo __('操作'); ?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -19,20 +31,54 @@
 	<tr>
 		<td><?php echo h($board['Board']['id']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($board['User']['id'], array('controller' => 'users', 'action' => 'view', $board['User']['id'])); ?>
+			<?php echo $user_list[$board['Board']['user_id']]; ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($board['BusinessPurpose']['id'], array('controller' => 'business_purposes', 'action' => 'view', $board['BusinessPurpose']['id'])); ?>
+			<?php echo $business_purpose_list[$board['Board']['business_purpose_id']]; ?>
 		</td>
 		<td><?php echo h($board['Board']['title']); ?>&nbsp;</td>
 		<td><?php echo h($board['Board']['content']); ?>&nbsp;</td>
-		<td><?php echo h($board['Board']['app_flag']); ?>&nbsp;</td>
+		
+        <td><?php echo $app_status[$board['Board']['app_flag']]; ?>&nbsp;</td>
+        <td><?php echo $delete_status[$board['Board']['delete_flag']]; ?>&nbsp;</td>
+        
+        <td><?php echo $app_delete_status[$board['Board']['app_flag']][$board['Board']['delete_flag']]; ?>&nbsp;</td>
 		<td><?php echo h($board['Board']['created_at']); ?>&nbsp;</td>
 		<td><?php echo h($board['Board']['updated_at']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $board['Board']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $board['Board']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $board['Board']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $board['Board']['id']))); ?>
+			<?php echo $this->Html->link('投稿確認', array('action' => 'view', $board['Board']['id'])); ?>
+            
+            
+			<?php 
+            
+            if($board['Board']['app_flag'] == 0){
+            
+            echo $this->Form->postLink('投稿承認', array('action' => 'app', $board['Board']['id'])); 
+            
+            }else{
+                
+                echo "<a href=''>承認済</a>";
+                
+            }
+            ?>
+            
+            
+            
+			<?php 
+            
+            if($board['Board']['delete_flag'] == 0){
+            
+            echo $this->Form->postLink('投稿削除', array('action' => 'delete', $board['Board']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $board['Board']['id']))); 
+            
+            }else{
+                
+                echo "<a href=''>削除済</a>";
+                
+            }
+            
+            ?>
+            
+            
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -53,17 +99,5 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Board'), array('action' => 'add')); ?></li>
-        <li><?php echo $this->Html->link(__('Search Board'), array('action' => 'search')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Business Purposes'), array('controller' => 'business_purposes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Business Purpose'), array('controller' => 'business_purposes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Board Comments'), array('controller' => 'board_comments', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Board Comment'), array('controller' => 'board_comments', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Board Images'), array('controller' => 'board_images', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Board Image'), array('controller' => 'board_images', 'action' => 'add')); ?> </li>
-	</ul>
+		<?php echo $this->element('ctl_nav'); ?>
 </div>

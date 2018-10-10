@@ -16,7 +16,10 @@
     </li> 
         
     <li><?php echo $this->Html->link(__('交流会一覧'), array('controller' => 'Parties', 'action' => 'index')); ?> 
-    </li>    
+    </li>
+        
+    <li><?php echo $this->Html->link(__('投稿の承認'), array('controller' => 'Boards', 'action' => 'index')); ?> 
+    </li>   
     
         
         </ul>

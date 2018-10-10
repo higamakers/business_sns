@@ -1,12 +1,14 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * BoardComment Model
+ * BoardAnswer Model
  *
  * @property Board $Board
+ * @property BoardQuestion $BoardQuestion
+ * @property PostUser $PostUser
  * @property User $User
  */
-class BoardComment extends AppModel {
+class BoardAnswer extends AppModel {
 
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -20,6 +22,20 @@ class BoardComment extends AppModel {
 		'Board' => array(
 			'className' => 'Board',
 			'foreignKey' => 'board_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'BoardQuestion' => array(
+			'className' => 'BoardQuestion',
+			'foreignKey' => 'board_question_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'PostUser' => array(
+			'className' => 'User',
+			'foreignKey' => 'post_user_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

@@ -486,6 +486,16 @@ protected $column = array('id' => 'No.',
     //他人のプロフィールページ
     public function profile_view($id = null){
         
+        $user_id = $this->Auth->user('id');
+        
+        //自分であればリダイレクト
+        if($id == $user_id){
+            
+            $this->redirect(array('action' => 'my_profile'));
+            
+        }
+        
+        
         if($id != null){
             
             $user_id = $this->Auth->user("id");

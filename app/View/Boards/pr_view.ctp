@@ -1,8 +1,12 @@
 <div class="boards view">
 <h2><?php echo h($board['Board']['title']); ?></h2>
+   
     <?php if($post_flag == 1): ?>
     
-    <p>投稿を削除する</p>
+    <p><?php echo $this->Form->postLink("投稿を削除する",
+                                       array('controller' => 'Boards',
+                                            'action' => 'pr_delete',
+                                            $board['Board']['id'])); ?></p>
     
     <?php endif; ?>
     
@@ -52,7 +56,13 @@
 			&nbsp;
 		</dd>
 	</dl>
+    
+    <!-- 質問一覧から -->
+<p>質問一覧へ</p>
+    
 </div>
+
+
 
 
 
@@ -60,7 +70,11 @@
 		<?php echo $this->element('navigation'); ?>
 	</div>
 
+
+
+
 <?php echo $this->Html->script('slick', array('inline' => true)); ?>
+
 <script type="text/javascript">
 
 
